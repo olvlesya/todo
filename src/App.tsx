@@ -1,25 +1,25 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import styled from "styled-components";
+import "antd/dist/antd.css";
+import { ControlPannel } from "./components/ControlPanel";
+import { Todos } from "./components/Todos";
+
+const ToDoApp = styled.section`
+  width: 400px;
+  margin: 20px auto;
+`;
 
 function App() {
+  const [todos, setTodos] = useState<string[]>([]);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ToDoApp>
+      <ControlPannel
+        addTodo={(value) => {
+          setTodos(todos.concat(value));
+        }}
+      />
+      <Todos todos={todos} />
+    </ToDoApp>
   );
 }
 
