@@ -1,16 +1,27 @@
 import React from "react";
+import { List } from "antd";
 import { Todo } from "./Todo";
 
 type Props = {
   todos: string[];
+  setTodos: (todos: string[]) => void;
 };
 
-export const Todos: React.FunctionComponent<Props> = ({ todos }) => {
+export const Todos: React.FunctionComponent<Props> = ({ todos, setTodos }) => {
   return (
-    <div>
-      {todos.map((todo, index) => (
-        <Todo text={todo} key={index} />
-      ))}
-    </div>
+    <List
+      bordered
+      dataSource={todos}
+      renderItem={(item, index) => (
+        <Todo
+          text={item}
+          onDelete={() => {
+            const todosCopy = [...todos];
+            todosCopy.splice(index, 1);
+            setTodos(todosCopy);
+          }}
+        />
+      )}
+    />
   );
 };
