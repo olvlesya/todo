@@ -18,7 +18,7 @@ function App() {
           setTodos(todos.concat(value));
         }}
       />
-      <Todos todos={todos} />
+      <Todos todos={todos} setTodos={setTodos} />
     </ToDoApp>
   );
 }
