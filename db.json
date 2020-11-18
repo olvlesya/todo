@@ -1,13 +1,8 @@
 {
   "todos": [
     {
-      "id": 1,
-      "text": "test",
-      "completed": false
-    },
-    {
       "text": "olesia",
-      "completed": false,
+      "completed": true,
       "id": 2
     },
     {
@@ -19,11 +14,6 @@
       "text": "dioma",
       "completed": false,
       "id": 4
-    },
-    {
-      "text": "lora",
-      "completed": false,
-      "id": 5
     }
   ]
 }

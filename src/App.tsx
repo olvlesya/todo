@@ -37,7 +37,11 @@ function App() {
         }}
       />
       <Todos
-        todos={todos.filter((todo) => todo.text.indexOf(filter) !== -1)}
+        todos={todos
+          .filter((todo) => todo.text.indexOf(filter) !== -1)
+          .sort(
+            (todo1, todo2) => Number(todo1.completed) - Number(todo2.completed)
+          )}
         setTodos={setTodos}
       />
     </ToDoApp>
