@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import "antd/dist/antd.css";
 import { ControlPannel } from "./components/ControlPanel";
 import { Todos } from "./components/Todos";
 import { todo } from "./types/todo";
 import { Searching } from "./components/Searching";
+import { createTodo, getTodos } from "./utilities/utilities";
 
 const ToDoApp = styled.section`
   width: 400px;
@@ -14,11 +15,20 @@ const ToDoApp = styled.section`
 function App() {
   const [todos, setTodos] = useState<Array<todo>>([]);
   const [filter, setFilter] = useState("");
+
+  useEffect(() => {
+    getTodos().then((value) => {
+      setTodos(value);
+    });
+  }, []);
+
   return (
     <ToDoApp>
       <ControlPannel
         addTodo={(value) => {
-          setTodos(todos.concat({ text: value, completed: false }));
+          createTodo({ text: value, completed: false }).then((newTodo) => {
+            setTodos(todos.concat(newTodo));
+          });
         }}
       />
       <Searching
@@ -27,7 +37,11 @@ function App() {
         }}
       />
       <Todos
-        todos={todos.filter((todo) => todo.text.indexOf(filter) !== -1)}
+        todos={todos
+          .filter((todo) => todo.text.indexOf(filter) !== -1)
+          .sort(
+            (todo1, todo2) => Number(todo1.completed) - Number(todo2.completed)
+          )}
         setTodos={setTodos}
       />
     </ToDoApp>

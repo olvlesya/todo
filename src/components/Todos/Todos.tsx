@@ -2,6 +2,7 @@ import React from "react";
 import { List } from "antd";
 import { Todo } from "./Todo";
 import { todo } from "../../types/todo";
+import { deleteTodo, updateTodo } from "../../utilities/utilities";
 
 type Props = {
   todos: Array<todo>;
@@ -13,21 +14,22 @@ export const Todos: React.FunctionComponent<Props> = ({ todos, setTodos }) => {
     <List
       bordered
       dataSource={todos}
-      renderItem={(item, index) => (
+      renderItem={(item) => (
         <Todo
           text={item.text}
           completed={item.completed}
           onTodoStateChange={(completed) => {
             item.completed = completed;
-            const todosElement = [...todos];
-            todosElement.splice(index, 1);
-            todosElement.push(item);
-            setTodos(todosElement);
+            updateTodo(item).then(() => {
+              setTodos(
+                todos.filter((todo) => todo.id !== item.id).concat(item)
+              );
+            });
           }}
           onDelete={() => {
-            const todosCopy = [...todos];
-            todosCopy.splice(index, 1);
-            setTodos(todosCopy);
+            deleteTodo(item.id).then(() => {
+              setTodos(todos.filter((todo) => todo.id !== item.id));
+            });
           }}
         />
       )}
