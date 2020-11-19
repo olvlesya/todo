@@ -3,6 +3,7 @@ import { List } from "antd";
 import { Todo } from "./Todo";
 import { todo } from "../../types/todo";
 import { deleteTodo, updateTodo } from "../../utilities/utilities";
+import { updateJsxText } from "typescript";
 
 type Props = {
   todos: Array<todo>;
@@ -24,6 +25,12 @@ export const Todos: React.FunctionComponent<Props> = ({ todos, setTodos }) => {
               setTodos(
                 todos.filter((todo) => todo.id !== item.id).concat(item)
               );
+            });
+          }}
+          onEdit={(text) => {
+            item.text = text;
+            updateTodo(item).then(() => {
+              setTodos(todos);
             });
           }}
           onDelete={() => {

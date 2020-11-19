@@ -1,18 +1,18 @@
 {
   "todos": [
     {
-      "text": "olesia",
+      "text": "ole",
       "completed": true,
       "id": 2
     },
     {
-      "text": "vova",
-      "completed": false,
+      "text": "vov",
+      "completed": true,
       "id": 3
     },
     {
       "text": "dioma",
-      "completed": false,
+      "completed": true,
       "id": 4
     }
   ]
