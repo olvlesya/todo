@@ -1,20 +1,24 @@
 import React from "react";
 import { Checkbox, List, Button } from "antd";
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
+import { connect } from "react-redux";
 import styles from "./todo.module.scss";
+import { removeTodo, changeTodo } from "../../store/async-actions";
 
 type Props = {
+  id: number;
   text: string;
-  onDelete: () => void;
-  onTodoStateChange: (value: boolean) => void;
   completed: boolean;
+  todoComplete: (id: number, text: string, completed: boolean) => void;
+  todoRemove: (id: number) => void;
 };
 
-export const Todo: React.FunctionComponent<Props> = ({
+const TodoContainer: React.FunctionComponent<Props> = ({
+  id,
   text,
-  onDelete,
-  onTodoStateChange,
   completed,
+  todoComplete,
+  todoRemove,
 }) => {
   return (
     <List.Item
@@ -25,7 +29,7 @@ export const Todo: React.FunctionComponent<Props> = ({
           type="primary"
           icon={<DeleteOutlined />}
           onClick={() => {
-            onDelete();
+            todoRemove(id);
           }}
         ></Button>,
       ]}
@@ -33,7 +37,7 @@ export const Todo: React.FunctionComponent<Props> = ({
       <Checkbox
         checked={completed}
         onChange={() => {
-          onTodoStateChange(!completed);
+          todoComplete(id, text, !completed);
         }}
       >
         {text}
@@ -41,3 +45,16 @@ export const Todo: React.FunctionComponent<Props> = ({
     </List.Item>
   );
 };
+
+const mapDispatchToProps = (dispatch: Function) => {
+  return {
+    todoComplete: (id: number, text: string, completed: boolean) => {
+      dispatch(changeTodo(id, text, completed));
+    },
+    todoRemove: (id: number) => {
+      dispatch(removeTodo(id));
+    },
+  };
+};
+
+export const Todo = connect(null, mapDispatchToProps)(TodoContainer);

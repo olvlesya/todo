@@ -1,36 +1,32 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
+import { useSelector, useDispatch } from "react-redux";
 import "antd/dist/antd.css";
 import { ControlPannel } from "./components/ControlPanel";
 import { Todos } from "./components/Todos";
-import { todo } from "./types/todo";
 import { Searching } from "./components/Searching";
-import { createTodo, getTodos } from "./utilities/utilities";
+import { loadTodos } from "./store/async-actions";
+import { stateType } from "./types/store";
 
 const ToDoApp = styled.section`
   width: 400px;
   margin: 20px auto;
 `;
 
-function App() {
-  const [todos, setTodos] = useState<Array<todo>>([]);
+const App: React.FunctionComponent<{}> = () => {
+  const todos = useSelector<stateType, stateType["todos"]>(
+    (state) => state.todos
+  );
+  const dispatch = useDispatch();
   const [filter, setFilter] = useState("");
 
   useEffect(() => {
-    getTodos().then((value) => {
-      setTodos(value);
-    });
+    dispatch(loadTodos());
   }, []);
 
   return (
     <ToDoApp>
-      <ControlPannel
-        addTodo={(value) => {
-          createTodo({ text: value, completed: false }).then((newTodo) => {
-            setTodos(todos.concat(newTodo));
-          });
-        }}
-      />
+      <ControlPannel />
       <Searching
         onSearch={(value) => {
           setFilter(value);
@@ -42,10 +38,9 @@ function App() {
           .sort(
             (todo1, todo2) => Number(todo1.completed) - Number(todo2.completed)
           )}
-        setTodos={setTodos}
       />
     </ToDoApp>
   );
-}
+};
 
 export default App;
