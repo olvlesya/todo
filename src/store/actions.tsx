@@ -56,3 +56,23 @@ export const initTodo = (todos: Array<todo>): initTodoType => {
     payload: todos,
   };
 };
+
+export type todoUpdateTextType = {
+  type: "todo/updateText";
+  payload: {
+    id: number;
+    text: string;
+  };
+};
+export const todoUpdateText = (
+  id: number,
+  text: string
+): todoUpdateTextType => {
+  return {
+    type: "todo/updateText",
+    payload: {
+      id,
+      text,
+    },
+  };
+};

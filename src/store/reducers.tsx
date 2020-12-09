@@ -4,11 +4,17 @@ import {
   todoRemoveType,
   todoCompleteType,
   initTodoType,
+  todoUpdateTextType,
 } from "./actions";
 
 export const todosReducer = (
   state: Array<todo> = [],
-  action: todoCreateType | todoRemoveType | todoCompleteType | initTodoType
+  action:
+    | todoCreateType
+    | todoRemoveType
+    | todoCompleteType
+    | initTodoType
+    | todoUpdateTextType
 ) => {
   switch (action.type) {
     case "todo/add": {
@@ -18,14 +24,25 @@ export const todosReducer = (
       return state.filter((todo) => todo.id !== action.payload);
     }
     case "todo/complete": {
-      const updTodo = state.find((todo) => todo.id === action.payload.id);
-      updTodo!.completed = action.payload.completed;
+      const findTodo: todo = state.find(
+        (todo) => todo.id === action.payload.id
+      )!;
       return state
         .filter((todo) => todo.id !== action.payload.id)
-        .concat(updTodo!);
+        .concat({
+          ...findTodo,
+          completed: action.payload.completed,
+        });
     }
     case "todo/init": {
       return action.payload;
+    }
+    case "todo/updateText": {
+      return state.map((todo) => {
+        return todo.id === action.payload.id
+          ? { ...todo, text: action.payload.text }
+          : todo;
+      });
     }
     default:
       return state;
