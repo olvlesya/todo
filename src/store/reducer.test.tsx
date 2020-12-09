@@ -7,13 +7,13 @@ import {
   todoUpdateText,
 } from "./actions";
 
-const generateTodo = (id: number) => ({
+const generateTodo = (id: number, completed = false, text = `Todo ${id}`) => ({
   id,
-  text: `Todo ${id}`,
-  completed: false,
+  text,
+  completed,
 });
 const generateTodos = (length: number) =>
-  Array.from({ length }, (_c, ind) => generateTodo(ind));
+  [...Array(length)].map((_c, ind) => generateTodo(ind));
 
 describe("reducer", () => {
   test("todoCreate", () => {
@@ -31,17 +31,10 @@ describe("reducer", () => {
   });
 
   test("todoComplete", () => {
-    expect(
-      todosReducer(
-        [
-          { id: 1, text: "test", completed: false },
-          { id: 2, text: "test", completed: false },
-        ],
-        todoComplete(1, true)
-      )
-    ).toEqual([
-      { id: 2, text: "test", completed: false },
-      { id: 1, text: "test", completed: true },
+    const todos = generateTodos(2);
+    expect(todosReducer(todos, todoComplete(0, true))).toEqual([
+      generateTodo(1),
+      generateTodo(0, true),
     ]);
   });
 
