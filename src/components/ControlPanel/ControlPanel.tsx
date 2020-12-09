@@ -1,13 +1,12 @@
 import React, { useState } from "react";
 import { Input } from "antd";
+import { useDispatch } from "react-redux";
+import { addTodo } from "../../store/async-actions";
+type Props = {};
 
-type Props = {
-  addTodo: (value: string) => void;
-};
-
-export const ControlPannel: React.FunctionComponent<Props> = ({ addTodo }) => {
+export const ControlPannel: React.FunctionComponent<Props> = () => {
   const [value, setValue] = useState("");
-
+  const dispatch = useDispatch();
   return (
     <div>
       <Input
@@ -17,7 +16,7 @@ export const ControlPannel: React.FunctionComponent<Props> = ({ addTodo }) => {
         onKeyPress={(e) => {
           if (e.key === "Enter") {
             setValue("");
-            addTodo(value);
+            dispatch(addTodo(value));
           }
         }}
       />
