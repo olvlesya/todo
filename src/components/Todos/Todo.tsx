@@ -3,7 +3,11 @@ import { Checkbox, List, Button, Input } from "antd";
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 import { connect } from "react-redux";
 import styles from "./todo.module.scss";
-import { removeTodo, changeTodo } from "../../store/async-actions";
+import {
+  removeTodo,
+  updateTodoState,
+  changeTodo,
+} from "../../store/async-actions";
 
 type Props = {
   id: number;
@@ -11,7 +15,7 @@ type Props = {
   completed: boolean;
   todoComplete: (id: number, text: string, completed: boolean) => void;
   todoRemove: (id: number) => void;
-  todoEdit: (value: string) => void;
+  todoEdit: (id: number, text: string, completed: boolean) => void;
 };
 
 const TodoContainer: React.FunctionComponent<Props> = ({
@@ -53,6 +57,7 @@ const TodoContainer: React.FunctionComponent<Props> = ({
       >
         {editMode ? (
           <Input
+            className={styles.editTodo}
             value={value}
             onChange={(e) => {
               setValue(e.target.value);
@@ -60,7 +65,7 @@ const TodoContainer: React.FunctionComponent<Props> = ({
             onKeyPress={(e) => {
               if (e.key === "Enter") {
                 setEditMode(false);
-                todoEdit(value);
+                todoEdit(id, value, completed);
               }
             }}
           />
@@ -75,12 +80,14 @@ const TodoContainer: React.FunctionComponent<Props> = ({
 const mapDispatchToProps = (dispatch: Function) => {
   return {
     todoComplete: (id: number, text: string, completed: boolean) => {
-      dispatch(changeTodo(id, text, completed));
+      dispatch(updateTodoState(id, text, completed));
     },
     todoRemove: (id: number) => {
       dispatch(removeTodo(id));
     },
-    todoEdit: () => {},
+    todoEdit: (id: number, text: string, completed: boolean) => {
+      dispatch(changeTodo(id, text, completed));
+    },
   };
 };
 

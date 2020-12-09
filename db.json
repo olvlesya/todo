@@ -1,9 +1,9 @@
 {
   "todos": [
     {
+      "id": 2,
       "text": "olesia",
-      "completed": false,
-      "id": 2
+      "completed": false
     },
     {
       "text": "vova",
@@ -12,13 +12,13 @@
     },
     {
       "id": 4,
-      "text": "dioma",
+      "text": "diomarrrr",
       "completed": false
     },
     {
-      "text": "fiodor",
-      "completed": false,
-      "id": 5
+      "id": 5,
+      "text": "fiodorfjk",
+      "completed": true
     }
   ]
 }

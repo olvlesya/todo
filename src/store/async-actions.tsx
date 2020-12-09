@@ -11,8 +11,10 @@ import {
   todoRemove,
   todoComplete,
   todoCreate,
+  todoUpdateText,
   todoRemoveType,
   todoCompleteType,
+  todoUpdateTextType,
   todoCreateType,
 } from "./actions";
 import { stateType } from "../types/store";
@@ -38,7 +40,7 @@ export const removeTodo = (
   };
 };
 
-export const changeTodo = (
+export const updateTodoState = (
   id: number,
   text: string,
   completed: boolean
@@ -46,6 +48,17 @@ export const changeTodo = (
   return async (dispatch) => {
     await updateTodo({ id, text, completed });
     dispatch(todoComplete(id, completed));
+  };
+};
+
+export const changeTodo = (
+  id: number,
+  text: string,
+  completed: boolean
+): ThunkAction<void, stateType, unknown, todoUpdateTextType> => {
+  return async (dispatch) => {
+    await updateTodo({ id, text, completed });
+    dispatch(todoUpdateText(id, text));
   };
 };
 
