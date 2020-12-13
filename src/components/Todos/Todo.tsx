@@ -18,7 +18,7 @@ type Props = {
   todoEdit: (id: number, text: string, completed: boolean) => void;
 };
 
-const TodoContainer: React.FunctionComponent<Props> = ({
+export const TodoContainer: React.FunctionComponent<Props> = ({
   id,
   text,
   completed,
@@ -51,6 +51,7 @@ const TodoContainer: React.FunctionComponent<Props> = ({
     >
       <Checkbox
         checked={completed}
+        data-testid={`todo-checkbox-${id}`}
         onChange={() => {
           todoComplete(id, text, !completed);
         }}
@@ -58,6 +59,7 @@ const TodoContainer: React.FunctionComponent<Props> = ({
         {editMode ? (
           <Input
             className={styles.editTodo}
+            data-testid={`todo-input-${id}`}
             value={value}
             onChange={(e) => {
               setValue(e.target.value);
