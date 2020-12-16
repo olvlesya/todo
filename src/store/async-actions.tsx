@@ -4,7 +4,7 @@ import {
   deleteTodo,
   updateTodo,
   createTodo,
-} from "../utilities/utilities";
+} from "../utilities/fetchTodos";
 import {
   initTodo,
   initTodoType,
