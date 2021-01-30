@@ -75,6 +75,8 @@ export const TodoContainer: React.FC<Props> = ({
   );
 };
 
+// Could be implemented using react hooks useSelector and useDispatch
+// but decided to try an old approach
 const mapDispatchToProps = (dispatch: Function) => {
   return {
     updateTodoState: (id: number, completed: boolean) => {

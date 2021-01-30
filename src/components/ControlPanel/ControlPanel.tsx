@@ -2,9 +2,8 @@ import React, { useState } from "react";
 import { Input } from "antd";
 import { useDispatch } from "react-redux";
 import { todoCreate } from "../../store/actions";
-type Props = {};
 
-export const ControlPannel: React.FC<Props> = () => {
+export const ControlPannel: React.FC<{}> = () => {
   const [value, setValue] = useState("");
   const dispatch = useDispatch();
   return (
@@ -17,6 +16,9 @@ export const ControlPannel: React.FC<Props> = () => {
           if (e.key === "Enter") {
             setValue("");
             dispatch(todoCreate(value));
+          }
+          if (e.key === "Escape") {
+            setValue("");
           }
         }}
       />

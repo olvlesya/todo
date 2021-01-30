@@ -16,7 +16,7 @@ const generateTodos = (length: number) =>
 
 describe("reducer", () => {
   test("todoCreate", () => {
-    expect(todosReducer([], todoCreate(1, "test"))).toEqual([
+    expect(todosReducer([], todoCreate("test"))).toEqual([
       { id: 1, text: "test", completed: false },
     ]);
   });

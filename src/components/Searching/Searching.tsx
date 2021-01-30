@@ -9,13 +9,14 @@ type Props = {
 export const Searching: React.FC<Props> = ({ onSearch }) => {
   const [value, setValue] = useState("");
   return (
-    <div>
+    <section>
       <Search
         placeholder="Find todo"
         onSearch={onSearch}
+        allowClear
         value={value}
         onChange={(e) => setValue(e.target.value)}
       />
-    </div>
+    </section>
   );
 };
