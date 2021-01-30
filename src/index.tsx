@@ -8,13 +8,16 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { todosReducer } from "./store/reducers";
+import { loadState, saveState } from "./store/utilities";
 
 const store = createStore(
   combineReducers({
     todos: todosReducer,
   }),
+  loadState(),
   composeWithDevTools(applyMiddleware(thunk))
 );
+store.subscribe(() => saveState(store.getState()));
 
 ReactDOM.render(
   <React.StrictMode>

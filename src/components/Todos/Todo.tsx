@@ -3,28 +3,24 @@ import { Checkbox, List, Button, Input } from "antd";
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 import { connect } from "react-redux";
 import styles from "./todo.module.scss";
-import {
-  removeTodo,
-  updateTodoState,
-  changeTodo,
-} from "../../store/async-actions";
+import { todoRemove, todoUpdateText, todoComplete } from "../../store/actions";
 
 type Props = {
   id: number;
   text: string;
   completed: boolean;
-  todoComplete: (id: number, text: string, completed: boolean) => void;
-  todoRemove: (id: number) => void;
-  todoEdit: (id: number, text: string, completed: boolean) => void;
+  updateTodoState: (id: number, completed: boolean) => void;
+  removeTodoById: (id: number) => void;
+  updateTodoText: (id: number, text: string) => void;
 };
 
-export const TodoContainer: React.FunctionComponent<Props> = ({
+export const TodoContainer: React.FC<Props> = ({
   id,
   text,
   completed,
-  todoEdit,
-  todoComplete,
-  todoRemove,
+  updateTodoState,
+  removeTodoById,
+  updateTodoText,
 }) => {
   const [editMode, setEditMode] = useState(false);
   const [value, setValue] = useState(text);
@@ -44,7 +40,7 @@ export const TodoContainer: React.FunctionComponent<Props> = ({
           type="primary"
           icon={<DeleteOutlined />}
           onClick={() => {
-            todoRemove(id);
+            removeTodoById(id);
           }}
         ></Button>,
       ]}
@@ -53,7 +49,7 @@ export const TodoContainer: React.FunctionComponent<Props> = ({
         checked={completed}
         data-testid={`todo-checkbox-${id}`}
         onChange={() => {
-          todoComplete(id, text, !completed);
+          updateTodoState(id, !completed);
         }}
       >
         {editMode ? (
@@ -67,7 +63,7 @@ export const TodoContainer: React.FunctionComponent<Props> = ({
             onKeyPress={(e) => {
               if (e.key === "Enter") {
                 setEditMode(false);
-                todoEdit(id, value, completed);
+                updateTodoText(id, value);
               }
             }}
           />
@@ -81,14 +77,14 @@ export const TodoContainer: React.FunctionComponent<Props> = ({
 
 const mapDispatchToProps = (dispatch: Function) => {
   return {
-    todoComplete: (id: number, text: string, completed: boolean) => {
-      dispatch(updateTodoState(id, text, completed));
+    updateTodoState: (id: number, completed: boolean) => {
+      dispatch(todoComplete(id, completed));
     },
-    todoRemove: (id: number) => {
-      dispatch(removeTodo(id));
+    removeTodoById: (id: number) => {
+      dispatch(todoRemove(id));
     },
-    todoEdit: (id: number, text: string, completed: boolean) => {
-      dispatch(changeTodo(id, text, completed));
+    updateTodoText: (id: number, text: string) => {
+      dispatch(todoUpdateText(id, text));
     },
   };
 };

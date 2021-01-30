@@ -1,11 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import "antd/dist/antd.css";
 import { ControlPannel } from "./components/ControlPanel";
 import { Todos } from "./components/Todos";
 import { Searching } from "./components/Searching";
-import { loadTodos } from "./store/async-actions";
 import { stateType } from "./types/store";
 
 const ToDoApp = styled.section`
@@ -13,16 +12,11 @@ const ToDoApp = styled.section`
   margin: 20px auto;
 `;
 
-const App: React.FunctionComponent<{}> = () => {
+const App: React.FC<{}> = () => {
   const todos = useSelector<stateType, stateType["todos"]>(
     (state) => state.todos
   );
-  const dispatch = useDispatch();
   const [filter, setFilter] = useState("");
-
-  useEffect(() => {
-    dispatch(loadTodos());
-  }, []);
 
   return (
     <ToDoApp>

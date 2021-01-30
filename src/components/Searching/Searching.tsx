@@ -6,7 +6,7 @@ const { Search } = Input;
 type Props = {
   onSearch: (value: string) => void;
 };
-export const Searching: React.FunctionComponent<Props> = ({ onSearch }) => {
+export const Searching: React.FC<Props> = ({ onSearch }) => {
   const [value, setValue] = useState("");
   return (
     <div>
