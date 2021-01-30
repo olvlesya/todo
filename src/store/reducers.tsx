@@ -3,7 +3,6 @@ import {
   todoCreateType,
   todoRemoveType,
   todoCompleteType,
-  initTodoType,
   todoUpdateTextType,
 } from "./actions";
 
@@ -13,12 +12,12 @@ export const todosReducer = (
     | todoCreateType
     | todoRemoveType
     | todoCompleteType
-    | initTodoType
     | todoUpdateTextType
 ) => {
   switch (action.type) {
     case "todo/add": {
-      return state.concat(action.payload);
+      const lastId = state[state.length - 1]?.id ?? 1;
+      return state.concat({ ...action.payload, id: lastId });
     }
     case "todo/delete": {
       return state.filter((todo) => todo.id !== action.payload);
@@ -33,9 +32,6 @@ export const todosReducer = (
           ...findTodo,
           completed: action.payload.completed,
         });
-    }
-    case "todo/init": {
-      return action.payload;
     }
     case "todo/updateText": {
       return state.map((todo) => {

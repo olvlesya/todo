@@ -1,10 +1,9 @@
 import React, { useState } from "react";
 import { Input } from "antd";
 import { useDispatch } from "react-redux";
-import { addTodo } from "../../store/async-actions";
-type Props = {};
+import { todoCreate } from "../../store/actions";
 
-export const ControlPannel: React.FunctionComponent<Props> = () => {
+export const ControlPannel: React.FC<{}> = () => {
   const [value, setValue] = useState("");
   const dispatch = useDispatch();
   return (
@@ -16,7 +15,10 @@ export const ControlPannel: React.FunctionComponent<Props> = () => {
         onKeyPress={(e) => {
           if (e.key === "Enter") {
             setValue("");
-            dispatch(addTodo(value));
+            dispatch(todoCreate(value));
+          }
+          if (e.key === "Escape") {
+            setValue("");
           }
         }}
       />

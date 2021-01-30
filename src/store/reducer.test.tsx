@@ -3,7 +3,6 @@ import {
   todoCreate,
   todoRemove,
   todoComplete,
-  initTodo,
   todoUpdateText,
 } from "./actions";
 
@@ -17,7 +16,7 @@ const generateTodos = (length: number) =>
 
 describe("reducer", () => {
   test("todoCreate", () => {
-    expect(todosReducer([], todoCreate(1, "test"))).toEqual([
+    expect(todosReducer([], todoCreate("test"))).toEqual([
       { id: 1, text: "test", completed: false },
     ]);
   });
@@ -36,11 +35,6 @@ describe("reducer", () => {
       generateTodo(1),
       generateTodo(0, true),
     ]);
-  });
-
-  test("initTodo", () => {
-    const todos = generateTodos(3);
-    expect(todosReducer([], initTodo(todos))).toEqual(todos);
   });
 
   test("todoUpdateText", () => {

@@ -13,9 +13,9 @@ describe("Todo", () => {
         id={id}
         text={text}
         completed={completed}
-        todoComplete={() => {}}
-        todoRemove={() => {}}
-        todoEdit={() => {}}
+        updateTodoState={() => {}}
+        removeTodoById={() => {}}
+        updateTodoText={() => {}}
       />
     );
     expect(container.getByText(text)).toBeInTheDocument();
@@ -35,9 +35,9 @@ describe("Todo", () => {
         id={todoId}
         text={todoText}
         completed={todoCompleted}
-        todoComplete={todoCompleteMock}
-        todoRemove={() => {}}
-        todoEdit={() => {}}
+        updateTodoState={todoCompleteMock}
+        removeTodoById={() => {}}
+        updateTodoText={() => {}}
       />
     );
 
@@ -48,7 +48,7 @@ describe("Todo", () => {
     fireEvent.click(checkbox);
 
     expect(todoCompleteMock).toBeCalledTimes(1);
-    expect(todoCompleteMock.mock.calls[0][2]).toBe(!todoCompleted);
+    expect(todoCompleteMock.mock.calls[0][1]).toBe(!todoCompleted);
   });
 
   test("Todo remove callback", () => {
@@ -62,9 +62,9 @@ describe("Todo", () => {
         id={todoId}
         text={todoText}
         completed={todoCompleted}
-        todoComplete={() => {}}
-        todoRemove={todoRemoveMock}
-        todoEdit={() => {}}
+        updateTodoState={() => {}}
+        removeTodoById={todoRemoveMock}
+        updateTodoText={() => {}}
       />
     );
 
@@ -86,9 +86,9 @@ describe("Todo", () => {
         id={todoId}
         text={todoText}
         completed={todoCompleted}
-        todoComplete={() => {}}
-        todoRemove={() => {}}
-        todoEdit={todoEditMock}
+        updateTodoState={() => {}}
+        removeTodoById={() => {}}
+        updateTodoText={todoEditMock}
       />
     );
 

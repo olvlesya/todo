@@ -7,7 +7,7 @@ type Props = {
   todos: Array<todo>;
 };
 
-export const Todos: React.FunctionComponent<Props> = ({ todos }) => {
+export const Todos: React.FC<Props> = ({ todos }) => {
   return (
     <List
       bordered
