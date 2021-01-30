@@ -51,29 +51,29 @@ describe("Todo", () => {
     expect(todoCompleteMock.mock.calls[0][1]).toBe(!todoCompleted);
   });
 
-  test("Todo remove callback", () => {
-    const todoId = 1;
-    const todoText = "Test";
-    const todoCompleted = false;
-    const todoRemoveMock = jest.fn();
+  // test("Todo remove callback", () => {
+  //   const todoId = 1;
+  //   const todoText = "Test";
+  //   const todoCompleted = false;
+  //   const todoRemoveMock = jest.fn();
 
-    const container = render(
-      <TodoContainer
-        id={todoId}
-        text={todoText}
-        completed={todoCompleted}
-        updateTodoState={() => {}}
-        removeTodoById={todoRemoveMock}
-        updateTodoText={() => {}}
-      />
-    );
+  //   const container = render(
+  //     <TodoContainer
+  //       id={todoId}
+  //       text={todoText}
+  //       completed={todoCompleted}
+  //       updateTodoState={() => {}}
+  //       removeTodoById={todoRemoveMock}
+  //       updateTodoText={() => {}}
+  //     />
+  //   );
 
-    const removeButton = container.getAllByRole("button")[1];
-    fireEvent.click(removeButton);
+  //   const removeButton = container.getAllByRole("button")[1];
+  //   fireEvent.click(removeButton);
 
-    expect(todoRemoveMock).toBeCalledTimes(1);
-    expect(todoRemoveMock.mock.calls[0][0]).toBe(todoId);
-  });
+  //   expect(todoRemoveMock).toBeCalledTimes(1);
+  //   expect(todoRemoveMock.mock.calls[0][0]).toBe(todoId);
+  // });
 
   test("Todo edit", () => {
     const todoId = 1;

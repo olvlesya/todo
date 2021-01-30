@@ -10,6 +10,10 @@ import { stateType } from "./types/store";
 const ToDoApp = styled.section`
   width: 400px;
   margin: 20px auto;
+
+  @media (max-width: 640px) {
+    width: 90%;
+  }
 `;
 
 const App: React.FC<{}> = () => {

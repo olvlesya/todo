@@ -1,9 +1,11 @@
 import React, { useState } from "react";
-import { Checkbox, List, Button, Input } from "antd";
+import { Checkbox, List, Button, Input, Modal } from "antd";
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 import { connect } from "react-redux";
 import styles from "./todo.module.scss";
 import { todoRemove, todoUpdateText, todoComplete } from "../../store/actions";
+
+const { confirm } = Modal;
 
 type Props = {
   id: number;
@@ -24,9 +26,12 @@ export const TodoContainer: React.FC<Props> = ({
 }) => {
   const [editMode, setEditMode] = useState(false);
   const [value, setValue] = useState(text);
+  const listItemStyles = [styles.listItem, completed && styles.completed]
+    .filter(Boolean)
+    .join(" ");
   return (
     <List.Item
-      className={completed ? styles.completed : ""}
+      className={listItemStyles}
       actions={[
         <Button
           type="primary"
@@ -38,9 +43,15 @@ export const TodoContainer: React.FC<Props> = ({
         ></Button>,
         <Button
           type="primary"
+          danger
           icon={<DeleteOutlined />}
           onClick={() => {
-            removeTodoById(id);
+            confirm({
+              title: "Do you really want to remove the todo?",
+              onOk() {
+                removeTodoById(id);
+              },
+            });
           }}
         ></Button>,
       ]}

@@ -16,8 +16,8 @@ export const todosReducer = (
 ) => {
   switch (action.type) {
     case "todo/add": {
-      const lastId = state[state.length - 1]?.id ?? 1;
-      return state.concat({ ...action.payload, id: lastId });
+      const lastId = state[state.length - 1]?.id ?? 0;
+      return state.concat({ ...action.payload, id: lastId + 1 });
     }
     case "todo/delete": {
       return state.filter((todo) => todo.id !== action.payload);

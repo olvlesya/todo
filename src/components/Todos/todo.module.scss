@@ -1,6 +1,14 @@
 .completed {
   text-decoration: line-through;
+  font-style: italic;
 }
 .editTodo {
   width: 80%;
+}
+
+.listItem {
+  @media (max-width: 640px) {
+    display: grid;
+    grid-template-columns: 1fr 100px;
+  }
 }
